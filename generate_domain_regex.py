@@ -23,9 +23,15 @@ def wildcard_to_regex(domain: str) -> Optional[str]:
     if not set(domain) <= VALID_DOMAIN_CHARS:
         return None
 
-    # 如果剩下的只有 * 或 - 或 .，跳过
-    if not any(c.isalnum() for c in domain):
+    # 至少要有一个字母或数字和一个点
+    if not any(c.isalnum() for c in domain) or '.' not in domain:
         return None
+
+    # 如果末尾是破碎的通配符或破折号，跳过
+    if domain.endswith("*") or domain.endswith("-"):
+        domain = domain.rstrip("*-")
+        if not domain or '.' not in domain:
+            return None
 
     # 转义正则特殊字符，保留 *
     domain_regex = re.escape(domain).replace(r"\*", ".*")
@@ -59,7 +65,7 @@ def main():
         json.dump(output, f, indent=2, ensure_ascii=False)
 
     print(f"生成完成：{OUTPUT_FILE}")
-    print(f"有效规则数量：{len(regex_list)}，跳过非法条目：{skipped_count}")
+    print(f"有效规则数量：{len(regex_list)}, 跳过非法或无效条目：{skipped_count}")
 
 if __name__ == "__main__":
     main()
