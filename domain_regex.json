@@ -216,6 +216,7 @@
         "^logreport\\-global\\-dual\\.cool.*cloud\\.com$",
         "^logs.*\\.smithsonian\\.museum$",
         "^logs\\-.*\\.rebxgame\\.com$",
+        "^logs\\.collector\\..*\\.cloud\\.solarwinds\\.com$",
         "^logservice\\-.*\\.platform\\.dbankcloud\\.cn$",
         "^logstash\\-.*\\.radio\\-canada\\.ca$",
         "^lt.*\\.tritondigital\\.com$",
